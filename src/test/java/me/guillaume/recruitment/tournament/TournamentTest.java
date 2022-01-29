@@ -40,7 +40,7 @@ public class TournamentTest {
      * a buckler cancel all the damages of a blow one time out of two
      * a buckler is destroyed after blocking 3 blow from an axe
      */
-    /*@Test
+    @Test
 	public void SwordsmanWithBucklerVsVikingWithBuckler() {
 
         Swordsman swordsman = new Swordsman()
@@ -54,7 +54,7 @@ public class TournamentTest {
         assertThat(swordsman.hitPoints()).isEqualTo(0);
         assertThat(viking.hitPoints()).isEqualTo(70);
 
-    }*/
+    }
 
     /**
      * an Highlander as 150 hit points and fight with a Great Sword
