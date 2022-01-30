@@ -25,7 +25,6 @@ public class Buckler extends DefenseObject {
 		if (wt==weaponType.axe && inUse) {
 			this.durability-=1;
 		}
-		System.out.println("parry : "+ inUse);
 		inUse = !inUse;
 		
 		return !inUse;
