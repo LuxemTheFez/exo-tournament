@@ -7,6 +7,14 @@ public class Swordsman extends Fighter {
 		
 	}
 	
+	
+	
+	public Swordsman(String type) {
+		super(100, new Weapon(5, "1 hand sword", weaponType.sword), type);
+	}
+
+
+
 	public Swordsman equip(String nom) {
 		switch (nom) {
 		case "buckler":
@@ -15,6 +23,8 @@ public class Swordsman extends Fighter {
 		case "armor":
 			this.setArmor(new Armor(3, "armor",this));
 			break;
+		case "axe":
+			this.setWeapon(new Weapon(6, "1 hand axe",weaponType.axe));
 		default:
 			break;
 		}

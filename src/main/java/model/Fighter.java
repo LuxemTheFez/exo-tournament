@@ -6,13 +6,27 @@ import java.util.Iterator;
 public abstract class Fighter {
 
 	private int hp;
+	private int hpMax;
 	private Weapon weapon;
-	private Buckler buckler;
-	private Armor armor;
+	private Buckler buckler = null;
+	private Armor armor = null;
+	private boolean isBerserk = false;
+	private boolean isVicious = false;
+	private boolean isVeteran = false;
+	private int blow = 0;
 	
 	public Fighter(int hp, Weapon weapon) {
 		this.hp = hp;
 		this.weapon = weapon;
+	}
+	
+	public Fighter(int hp, Weapon weapon, String type) {
+		this.hp = hp;
+		this.hpMax = hp;
+		this.weapon = weapon;
+		this.isVeteran = type=="Veteran";
+		this.isVicious = type=="Vicious";
+		this.blow = type=="Vicious" ? 2: 0;
 	}
 	
 	public void engage(Fighter f) {
@@ -50,14 +64,31 @@ public abstract class Fighter {
 		}
 	}
 		
-
+	
+	public boolean isBerserk() {
+		if (isBerserk) {
+			return isBerserk;
+		}
+		double percent = (30 * hpMax) / 100;
+		isBerserk =  percent >= (double) hp;
+		
+		return isBerserk;
+		
+	}
 
 
 	
 	private int producedDamage() {
 		int dmg = this.weapon.getDamage();
+		if (isBerserk()) {
+			dmg*=2;
+		}
 		if(armor!=null) {
 			dmg-=armor.getDamageDealtReduction();
+		}
+		if(isVicious && blow>0) {
+			dmg+=20;
+			blow--;
 		}
 		return dmg;
 		
