@@ -3,6 +3,7 @@ package me.guillaume.recruitment.tournament;
 
 import org.junit.jupiter.api.Test;
 
+import model.Highlander;
 import model.Swordsman;
 import model.Viking;
 
@@ -40,7 +41,7 @@ public class TournamentTest {
      * a buckler cancel all the damages of a blow one time out of two
      * a buckler is destroyed after blocking 3 blow from an axe
      */
-    @Test
+   @Test
 	public void SwordsmanWithBucklerVsVikingWithBuckler() {
 
         Swordsman swordsman = new Swordsman()
@@ -61,7 +62,7 @@ public class TournamentTest {
      * a Great Sword is a two handed sword deliver 12 damages, but can attack only 2 every 3
      * an armor : reduce all received damages by 3 & reduce delivered damages by one
      */
-    /*@Test
+    @Test
     public void ArmoredSwordsmanVsViking() {
 
         Highlander highlander = new Highlander();
@@ -75,7 +76,7 @@ public class TournamentTest {
         assertThat(swordsman.hitPoints()).isEqualTo(0);
         assertThat(highlander.hitPoints()).isEqualTo(10);
 
-    }*/
+    }
 
     /**
      * a vicious Swordsman is a Swordsman that put poison on his weapon.

@@ -10,9 +10,11 @@ public class Swordsman extends Fighter {
 	public Swordsman equip(String nom) {
 		switch (nom) {
 		case "buckler":
-			this.setDefenseObject(new Buckler(3, "buckler",this));
+			this.setBuckler(new Buckler(3, "buckler",this));
 			break;
-
+		case "armor":
+			this.setArmor(new Armor(3, "armor",this));
+			break;
 		default:
 			break;
 		}

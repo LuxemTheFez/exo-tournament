@@ -7,7 +7,7 @@ enum weaponType{
 
 public class Weapon {
 	
-	private int damage;
+	protected int damage;
 	private String name;
 	private weaponType type;
 	

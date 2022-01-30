@@ -1,14 +1,18 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public abstract class Fighter {
 
 	private int hp;
 	private Weapon weapon;
-	private DefenseObject defenseObject;
+	private Buckler buckler;
+	private Armor armor;
 	
 	public Fighter(int hp, Weapon weapon) {
 		this.hp = hp;
-		this.weapon = weapon; 
+		this.weapon = weapon;
 	}
 	
 	public void engage(Fighter f) {
@@ -39,19 +43,37 @@ public abstract class Fighter {
 	}
 	
 	public void attack(Fighter f) {
-		DefenseObject object = f.getDefenseObject();
+		int dmg = producedDamage();	
 		
-		if(object != null) {
-			if(!object.defends(this.weapon.getType())) {
-				f.takeDamage(this.weapon.getDamage());	
-			}
-		}else{
-			f.takeDamage(this.weapon.getDamage());	
+		if (dmg>0) {
+			f.takeDamage(dmg, this.weapon.getType());
 		}
+	}
+		
+
+
+
+	
+	private int producedDamage() {
+		int dmg = this.weapon.getDamage();
+		if(armor!=null) {
+			dmg-=armor.getDamageDealtReduction();
+		}
+		return dmg;
 		
 	}
 	
-	public boolean isAlive() {
+	
+	private int damageMitigation(int incomingDamge) {
+		int dmg = incomingDamge;
+		if(armor!=null) {
+			dmg-=armor.getDamageReceivedReduction();
+		}
+		
+		return dmg;
+	}
+	
+	private boolean isAlive() {
 		boolean res = true;
 		if (this.hp<=0) {
 			res = false;
@@ -60,12 +82,19 @@ public abstract class Fighter {
 		return res;
 	}
 	
-	public void takeDamage(int dmg) {
-		if(this.hp-dmg<0) {
-			this.hp=0;
-		}else {
-			this.hp-=dmg;
-		}
+	public void takeDamage(int dmg, weaponType type) {
+			int dmgAfterReduction = damageMitigation(dmg);
+			if (buckler!=null) {
+				if(buckler.parrying(type)) {
+					dmgAfterReduction = 0;
+				}
+			}
+			System.out.println(dmgAfterReduction);
+			if(this.hp-dmgAfterReduction<0) {
+				this.hp=0;
+			}else {
+				this.hp-=dmgAfterReduction;
+			}	
 	}
 	
 
@@ -95,11 +124,21 @@ public abstract class Fighter {
 		this.weapon = weapon;
 	}
 
-	public DefenseObject getDefenseObject() {
-		return defenseObject;
+	public Buckler getBuckler() {
+		return buckler;
 	}
 
-	public void setDefenseObject(DefenseObject defenseObject) {
-		this.defenseObject = defenseObject;
-	}	
+	public void setBuckler(Buckler buckler) {
+		this.buckler = buckler;
+	}
+
+	public Armor getArmor() {
+		return armor;
+	}
+
+	public void setArmor(Armor armor) {
+		this.armor = armor;
+	}
+
+	
 }

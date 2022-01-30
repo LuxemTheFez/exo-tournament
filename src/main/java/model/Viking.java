@@ -10,7 +10,7 @@ public class Viking extends Fighter {
 	public Viking equip(String nom) {
 		switch (nom) {
 		case "buckler":
-			this.setDefenseObject(new Buckler(3, "buckler",this));
+			this.setBuckler(new Buckler(3, "buckler",this));
 			break;
 
 		default:
